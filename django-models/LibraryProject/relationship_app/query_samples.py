@@ -4,9 +4,9 @@ from relationship_app.models import Author, Book, Library, Librarian
 # Query 1: All books by a specific author
 def books_by_author(author_name):
     author = Author.objects.get(name=author_name)
-    # Using the related_name approach:
+    # Using related_name
     books_via_related = author.books.all()
-    # Using the objects.filter() method explicitly:
+    # Using explicit filter
     books_via_filter = Book.objects.filter(author=author)
 
     print(f"\nBooks by {author_name} (via related_name):")
@@ -35,14 +35,21 @@ def books_in_library(library_name):
 # Query 3: Retrieve the librarian for a specific library
 def librarian_of_library(library_name):
     library = Library.objects.get(name=library_name)
-    librarian = library.librarian
+    
+    # Using reverse relation (OneToOneField)
+    librarian_via_reverse = library.librarian
+    
+    # Using direct lookup with Librarian.objects.get()
+    librarian_via_filter = Librarian.objects.get(library=library)
 
-    print(f"\nLibrarian of {library_name}: {librarian.name}")
-    return librarian
+    print(f"\nLibrarian of {library_name} (via reverse relation): {librarian_via_reverse.name}")
+    print(f"Librarian of {library_name} (via objects.get): {librarian_via_filter.name}")
+
+    return librarian_via_filter
 
 
 if __name__ == "__main__":
-    # Example usage (adjust names as needed)
+    # Example usage — update names as needed
     books_by_author("J.K. Rowling")
     books_in_library("Central Library")
     librarian_of_library("Central Library")
