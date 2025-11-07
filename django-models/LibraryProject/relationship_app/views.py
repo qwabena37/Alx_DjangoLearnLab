@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.detail import DetailView  # Explicit import for DetailView
 from .models import Book, Library
 from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
