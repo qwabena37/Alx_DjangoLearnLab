@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView  # Explicit import for DetailView
-from .models import Book, Library
+from .models import Book
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
@@ -11,7 +11,7 @@ from .models import UserProfile
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Book
+from .models import Library   #"from .models import Library"
 from .forms import BookForm  # assuming you have forms to add/edit books
 
 
