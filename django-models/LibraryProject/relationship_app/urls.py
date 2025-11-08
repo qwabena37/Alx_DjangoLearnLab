@@ -19,7 +19,12 @@ urlpatterns = [
     path('books/', views.list_books, name='list_books'),
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
 
-    path('books/add/', views.add_book, name='add_book'),
-    path('books/<int:pk>/edit/', views.edit_book, name='edit_book'),
-    path('books/<int:pk>/delete/', views.delete_book, name='delete_book'),
+    # URL for adding a book
+    path('add_book/', views.add_book, name='add_book'),
+    
+    # URL for editing a book by its primary key (id)
+    path('edit_book/<int:pk>/', views.edit_book, name='edit_book'),
+    
+    # You can also include delete_book if needed
+    path('delete_book/<int:pk>/', views.delete_book, name='delete_book'),
 ]
