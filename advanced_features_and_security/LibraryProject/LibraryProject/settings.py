@@ -24,6 +24,10 @@ SECRET_KEY = 'django-insecure-#352usg+jgjdo2c-^f#-k0h5dqkywq*2=jb%pd_mdc0aurpxk7
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+# Tell Django to trust the 'X-Forwarded-Proto' header from the proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 SECURE_BROWSER_XSS_FILTER = True           # Enables the browser’s XSS filtering
 X_FRAME_OPTIONS = 'DENY'                    # Prevents clickjacking by disallowing framing
 SECURE_CONTENT_TYPE_NOSNIFF = True         # Prevents MIME type sniffing
