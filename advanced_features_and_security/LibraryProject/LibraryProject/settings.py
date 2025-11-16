@@ -23,7 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#352usg+jgjdo2c-^f#-k0h5dqkywq*2=jb%pd_mdc0aurpxk7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+SECURE_BROWSER_XSS_FILTER = True           # Enables the browser’s XSS filtering
+X_FRAME_OPTIONS = 'DENY'                    # Prevents clickjacking by disallowing framing
+SECURE_CONTENT_TYPE_NOSNIFF = True         # Prevents MIME type sniffing
+# settings.py
+# Enforce HTTPS-only cookies to protect user sessions against network sniffing.
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 
 ALLOWED_HOSTS = []
 
@@ -40,10 +48,12 @@ INSTALLED_APPS = [
     'bookshelf',
     'relationship_app',
     'accounts',
+    'csp'
 ]
 AUTH_USER_MODEL = "bookshelf.CustomUser"
 
 MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -133,3 +143,6 @@ LOGIN_URL = '/relationship/login/'
 # --- Media (for profile_photo) ---
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'   # if BASE_DIR is a pathlib.Path; otherwise os.path.join(BASE_DIR,'media')
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'ajax.googleapis.com')  # adjust as needed
+CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
