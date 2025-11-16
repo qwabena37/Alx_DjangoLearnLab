@@ -7,7 +7,7 @@ class BookSearchForm(forms.Form):
         required=True,
         widget=forms.TextInput(attrs={'placeholder': 'Search books...'})
     )
-
+#"ExampleForm"
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
