@@ -11,7 +11,7 @@ def article_list(request):
 @permission_required('yourapp.can_create', raise_exception=True)
 def article_create(request):
     if request.method == "POST":
-        # Create logic here...
+        # Create books...
         return redirect("article_list")
     return render(request, "articles/create.html")
 
@@ -19,7 +19,7 @@ def article_create(request):
 def article_edit(request, pk):
     article = get_object_or_404(Article, pk=pk)
     if request.method == "POST":
-        # Edit logic here...
+        # Edit Book_list..
         return redirect("article_list")
     return render(request, "articles/edit.html", {"article": article})
 
