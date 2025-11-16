@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Article
 from .models import Book  # Import your Book model
-from .forms import SearchForm
+from .forms import BookSearchForm
 
 # Unsafe (vulnerable to SQL injection)
 # User.objects.raw(f"SELECT * FROM user WHERE username = '{username}'")
@@ -22,6 +22,16 @@ def article_create(request):
         # Create books...
         return redirect("article_list")
     return render(request, "articles/create.html")
+
+
+def book_search_view(request):
+    form = BookSearchForm(request.GET or None)
+    books = Book.objects.none()
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        books = Book.objects.filter(title__icontains=query)  # safe ORM filtering
+
+    return render(request, 'bookshelf/book_list.html', {'form': form, 'books': books})
 
 @permission_required('yourapp.can_edit', raise_exception=True)
 def article_edit(request, pk):
