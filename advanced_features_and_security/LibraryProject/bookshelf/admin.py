@@ -1,6 +1,8 @@
 # bookshelf/admin.py
 from django.contrib import admin
 from .models import Book
+from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -23,3 +25,31 @@ class BookAdmin(admin.ModelAdmin):
     # optional conveniences
     ordering = ("title",)
     list_per_page = 20
+
+
+class CustomUserAdmin(UserAdmin):
+    model = CustomUser
+
+    # Show custom fields in admin detail view
+    fieldsets = UserAdmin.fieldsets + (
+        ('Additional Information', {
+            'fields': (
+                'date_of_birth',
+                'profile_photo',
+            )
+        }),
+    )
+
+    # Show custom fields when creating a new user in admin
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        ('Additional Information', {
+            'fields': (
+                'date_of_birth',
+                'profile_photo',
+            )
+        }),
+    )
+
+
+# THIS IS THE REQUIRED LINE
+admin.site.register(CustomUser, CustomUserAdmin)
