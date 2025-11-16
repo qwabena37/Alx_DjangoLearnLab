@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshelf',
-    'relationship_app'
+    'relationship_app',
     'accounts',
 ]
+AUTH_USER_MODEL = "bookshelf.CustomUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,8 +129,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/relationship/login/'
 LOGIN_URL = '/relationship/login/'
 
-# --- Use the custom user model ---
-AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # --- Media (for profile_photo) ---
 MEDIA_URL = '/media/'

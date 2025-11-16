@@ -3,7 +3,8 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.admin import UserAdmin
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser
+from bookshelf.models import CustomUser
+
 
 # Custom forms if you want to add validation or show fields
 class CustomUserCreationForm(UserCreationForm):
@@ -55,5 +56,3 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('date_of_birth', 'profile_photo'),
         }),
     )
-
-admin.site.register(CustomUser, CustomUserAdmin)
