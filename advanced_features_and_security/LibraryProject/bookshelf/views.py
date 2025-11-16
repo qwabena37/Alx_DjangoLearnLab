@@ -4,6 +4,21 @@ from django.contrib.auth.decorators import permission_required
 from .models import Article
 from .models import Book  # Import your Book model
 from .forms import BookSearchForm
+from .forms import ExampleForm
+
+
+def example_view(request):
+    if request.method == 'POST':
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # process the cleaned data securely
+            # e.g., save to DB, etc.
+            form.save()
+            return redirect('success_url')
+    else:
+        form = ExampleForm()
+    return render(request, 'bookshelf/form_example.html', {'form': form})
+
 
 # Unsafe (vulnerable to SQL injection)
 # User.objects.raw(f"SELECT * FROM user WHERE username = '{username}'")
