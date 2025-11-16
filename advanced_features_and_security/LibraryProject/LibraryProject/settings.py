@@ -32,6 +32,16 @@ SECURE_CONTENT_TYPE_NOSNIFF = True         # Prevents MIME type sniffing
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+# Prevent the site from being embedded in frames (clickjacking protection)
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from MIME-sniffing responses to a different content-type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable the browser's XSS filtering and protection mechanisms
+SECURE_BROWSER_XSS_FILTER = True
+
+
 
 ALLOWED_HOSTS = []
 
@@ -146,3 +156,17 @@ MEDIA_ROOT = BASE_DIR / 'media'   # if BASE_DIR is a pathlib.Path; otherwise os.
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = ("'self'", 'ajax.googleapis.com')  # adjust as needed
 CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
+
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True  
+
+# HTTP Strict Transport Security (HSTS) settings  
+# Instruct browsers to only use HTTPS for the next year (in seconds)
+SECURE_HSTS_SECONDS = 31536000  
+
+# Include all subdomains in the HSTS policy
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  
+
+# Allow your site to be preloaded into browsers' HSTS lists
+SECURE_HSTS_PRELOAD = True  
