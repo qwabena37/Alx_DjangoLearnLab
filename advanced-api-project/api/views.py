@@ -3,6 +3,7 @@ from rest_framework import generics
 from .models import Book
 from .serializers import BookSerializer
 from rest_framework import filters
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 class BookListView(generics.ListAPIView):
@@ -10,6 +11,7 @@ class BookListView(generics.ListAPIView):
     serializer_class = BookSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['publication_year', 'title']
+    permission_classes = [AllowAny]
 def get_queryset(self):
     # Optional custom filtering
     return Book.objects.filter(publication_year__lte=2025)
@@ -27,6 +29,8 @@ class BookDetailView(generics.RetrieveAPIView):
 class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
 
     def perform_create(self, serializer):
         """
