@@ -262,6 +262,20 @@ Send a DELETE request to:
 /api/books/<id>/delete/
 ```
 
+### Filtering
+Use query parameters like:
+  /api/books/?title=Example
+
+### Searching
+Use:
+  /api/books/?search=keyword
+
+### Ordering
+Use:
+  /api/books/?ordering=title
+  /api/books/?ordering=-publication_year
+
+
 ### Permission Testing
 
 Try requests:
