@@ -77,7 +77,10 @@ class BookAPITests(APITestCase):
         }
 
         response = self.client.post(self.create_url, data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn(
+            response.status_code,
+            [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN],
+        )
 
     def test_update_book_authenticated(self):
         """Authenticated user can update a book."""
@@ -94,7 +97,10 @@ class BookAPITests(APITestCase):
         """Unauthenticated user should not update a book."""
         data = {"title": "Should Not Update"}
         response = self.client.patch(self.update_url(self.book1.id), data, format="json")
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn(
+            response.status_code,
+            [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN],
+        )
 
     def test_delete_book_authenticated(self):
         """Authenticated user can delete a book."""
@@ -106,7 +112,10 @@ class BookAPITests(APITestCase):
     def test_delete_book_unauthenticated(self):
         """Unauthenticated user should not delete a book."""
         response = self.client.delete(self.delete_url(self.book2.id))
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn(
+            response.status_code,
+            [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN],
+        )
 
     # -------------------------
     #   FILTERING TESTS

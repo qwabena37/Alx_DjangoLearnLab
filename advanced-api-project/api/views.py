@@ -7,10 +7,12 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 #from django_filters import rest_framework
+    
 
-class BookListView(generics.ListAPIView):
+class BookListCreateView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [ DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
     ordering_fields = ['publication_year', 'title']
     # Filtering fields
@@ -23,9 +25,9 @@ class BookListView(generics.ListAPIView):
     ordering = ['title']
 
     permission_classes = [AllowAny]
-def get_queryset(self):
-    # Optional custom filtering
-    return Book.objects.filter(publication_year__lte=2025)
+    def get_queryset(self):
+        # Optional custom filtering
+        return Book.objects.filter(publication_year__lte=2025)
 
 
 
@@ -35,6 +37,7 @@ class BookDetailView(generics.RetrieveAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class BookCreateView(generics.CreateAPIView):
@@ -57,6 +60,8 @@ class BookUpdateView(generics.UpdateAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]  
+
 
 
 class BookDeleteView(generics.DestroyAPIView):
@@ -65,3 +70,4 @@ class BookDeleteView(generics.DestroyAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
