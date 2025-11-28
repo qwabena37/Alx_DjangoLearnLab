@@ -2,13 +2,18 @@ from django.shortcuts import render
 from rest_framework import generics
 from .models import Book
 from .serializers import BookSerializer
+from rest_framework import filters
+
 
 class BookListView(generics.ListAPIView):
-    """
-    Retrieves a list of all Book instances.
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['publication_year', 'title']
+def get_queryset(self):
+    # Optional custom filtering
+    return Book.objects.filter(publication_year__lte=2025)
+
 
 
 class BookDetailView(generics.RetrieveAPIView):
@@ -20,11 +25,15 @@ class BookDetailView(generics.RetrieveAPIView):
 
 
 class BookCreateView(generics.CreateAPIView):
-    """
-    Creates a new Book instance.
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+    def perform_create(self, serializer):
+        """
+        Custom logic when a book is created.
+        Could log events, enforce constraints, etc.
+        """
+        serializer.save()
 
 
 class BookUpdateView(generics.UpdateAPIView):
