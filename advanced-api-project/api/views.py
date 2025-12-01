@@ -8,7 +8,7 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 #from django_filters import rest_framework
     
-
+#ListView
 class BookListCreateView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
