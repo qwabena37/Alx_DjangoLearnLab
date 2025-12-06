@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>django_blog</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'blog:home' %}">Home</a>
+      {% if user.is_authenticated %}
+        <a href="{% url 'blog:profile' %}">Profile</a>
+        <a href="{% url 'blog:logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'blog:login' %}">Login</a>
+        <a href="{% url 'blog:register' %}">Register</a>
+      {% endif %}
+    </nav>
+
+    {% if messages %}
+      <ul>
+        {% for m in messages %}
+          <li>{{ m }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <main>{% block content %}{% endblock %}</main>
+  </body>
+</html>

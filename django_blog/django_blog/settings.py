@@ -131,3 +131,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = []
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+LOGIN_REDIRECT_URL = 'blog:home'   # change to where users should land after login
+LOGIN_URL = 'blog:login'
+LOGOUT_REDIRECT_URL = 'blog:home'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
