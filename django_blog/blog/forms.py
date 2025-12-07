@@ -4,9 +4,12 @@ from .models import Comment
 
 
 class PostForm(forms.ModelForm):
+    tags = forms.CharField(required=False, help_text="Enter tags separated by commas")
+
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'tags']
+
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(
