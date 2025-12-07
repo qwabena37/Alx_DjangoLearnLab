@@ -1,5 +1,9 @@
 from django.urls import path
 from . import views
+from .views import (
+    PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView,
+    CommentUpdateView, CommentDeleteView
+)
 
 from django.contrib.auth.views import LoginView, LogoutView
 
@@ -27,4 +31,14 @@ urlpatterns = [
     path('tags/<tag_name>/', views.tag_view, name='post-tag'),
     path('tags/<slug:tag_slug>/', views.PostByTagListView.as_view(), name='post-tag_list'),
     path('search/', views.search_view, name='post-search'),
+
+    path('', PostListView.as_view(), name='post-list'),
+    path('posts/<int:pk>/', PostDetailView.as_view(), name='post-detail'),
+    path('posts/new/', PostCreateView.as_view(), name='post-create'),
+    path('posts/<int:pk>/edit/', PostUpdateView.as_view(), name='post-update'),
+    path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
+
+    # comment edit/delete (inline creation handled by PostDetailView)
+    path('comments/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment-update'),
+    path('comments/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment-delete'),
 ]
