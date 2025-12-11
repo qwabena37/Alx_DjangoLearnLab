@@ -14,7 +14,8 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # Create user using Django's built-in method (handles hashing)
-        user = User.objects.create_user(
+        # use get_user_model().objects.create_user
+        user = get_user_model().objects.create_user(
             username=validated_data['username'],
             email=validated_data.get('email'),
             password=validated_data['password'],
