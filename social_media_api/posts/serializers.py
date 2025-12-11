@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post, Comment
+from .models import Post, Comment, Like
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -49,3 +49,17 @@ class PostSerializer(serializers.ModelSerializer):
             'comments',  # nested read-only comments
         ]
         read_only_fields = ['id', 'author', 'author_id', 'created_at', 'updated_at', 'comments']
+class LikeSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    user_id = serializers.ReadOnlyField(source='user.id')
+    post_id = serializers.PrimaryKeyRelatedField(source='post', queryset=Post.objects.all(), write_only=True)
+
+    class Meta:
+        model = Like
+        fields = ['id', 'post_id', 'post', 'user', 'user_id', 'created_at']
+        read_only_fields = ['id', 'user', 'user_id', 'created_at', 'post']
+
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['post_id'] = instance.post.id
+        return rep
