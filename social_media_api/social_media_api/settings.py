@@ -139,3 +139,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 AUTH_USER_MODEL = 'accounts.User' #cutom user
 
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS (only if you have SSL set up)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
