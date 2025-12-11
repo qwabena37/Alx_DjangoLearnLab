@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('accounts.urls')), #auth endpoints
     path('api/', include('posts.urls')),     # posts & comments endpoints
+    path('api/notifications/', include('notifications.urls')),
+
 ]
