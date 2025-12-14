@@ -2,6 +2,8 @@ from rest_framework import viewsets, filters, permissions, status, generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework import generics, permissions
+
 
 from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
@@ -24,6 +26,15 @@ class PostViewSet(viewsets.ModelViewSet):
         post = serializer.save(author=self.request.user)
         # No notification needed here
 
+class FollowingPostsFeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        # Adjust `following` field name if your User model uses a different related_name
+        following_users = user.following.all()  
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
