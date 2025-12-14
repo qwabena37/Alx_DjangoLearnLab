@@ -11,9 +11,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-import os
-
-PORT = int(os.getenv('PORT', 8000))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
