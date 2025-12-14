@@ -1,9 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate, get_user_model
 from rest_framework.authtoken.models import Token
+from .models import User  # or from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User  # or get_user_model()
+        fields = ['id', 'username', 'email', 'bio']  # include fields you want to expose
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)

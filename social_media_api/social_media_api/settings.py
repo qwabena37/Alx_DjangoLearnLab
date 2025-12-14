@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+PORT = int(os.getenv('PORT', 8000))
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure--#sax34^k(9lfohnbv^x%rf7702t1n=&-vww2%^7i&#xx8qg)_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     ".onrender.com",
@@ -148,10 +152,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'accounts.User' #cutom user
 
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS (only if you have SSL set up)
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#SECURE_BROWSER_XSS_FILTER = True
+#X_FRAME_OPTIONS = 'DENY'
+#SECURE_CONTENT_TYPE_NOSNIFF = True
+#SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS (only if you have SSL set up)
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
