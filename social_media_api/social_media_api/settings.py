@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -47,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'posts',
     'notifications',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -149,10 +149,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'accounts.User' #cutom user
 
-#SECURE_BROWSER_XSS_FILTER = True
-#X_FRAME_OPTIONS = 'DENY'
-#SECURE_CONTENT_TYPE_NOSNIFF = True
-#SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS (only if you have SSL set up)
-#SESSION_COOKIE_SECURE = True
-#CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS (only if you have SSL set up)
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
